@@ -1,57 +1,83 @@
 import React, { Component } from "react";
 
 class ContactForm extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
-        
 
-        this.state = { value: ''}
+
+        this.state = {
+            name: " ",
+            email: " ",
+            number: " ",
+            address: " ",
+            city: " ",
+            state: " ",
+            zip: " "
+        }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event){
-        this.setState({value: event.target.value})
+    handleChange(event, key) {
+        this.setState({ [key]: event.target.value })
     }
-    handleSubmit(event){
-        this.props.addNewUser(this.state.value); // i am grabbing the current state of the person object
-        this.setState({value: ' '}); 
+    handleSubmit(event) {
         event.preventDefault();
+        this.props.onAddUser(this.state); // i am grabbing the current state of the person object
+        // this.setState({ value: ' ' });
     }
 
-    render(){
-        return(
-            <form >
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit} >
                 <div className='form-group'>
-                    <label>Name:</label>
-                    <input type="text"  onChange={this.handleChange}/>
+                    <label>
+                        Name:
+                    <input type="text" onChange={(e) => this.handleChange(e, 'name')} />
+                    </label>
+
                 </div>
                 <div className='form-group'>
-                    <label>E-mail:</label>
-                    <input type="text"  onChange={this.handleChange}/>
+                    <label>
+                        E-mail:
+                        <input type="text" onChange={(e) => this.handleChange(e, 'email')} />
+                    </label>
+
                 </div>
                 <div className='form-group'>
-                    <label>Phone number:</label>
-                    <input type="text"  onChange={this.handleChange}/>
+                    <label>
+                        Phone number:
+                        <input type="text" onChange={(e) => this.handleChange(e, 'number')} />
+                    </label>
+
                 </div>
                 <div className='form-group'>
-                    <label>Address:</label>
-                    <input type="text"  onChange={this.handleChange}/>
+                    <label>
+                        Address:
+                        <input type="text" onChange={(e) => this.handleChange(e, 'address')} />
+                    </label>
+
                 </div>
                 <div className='form-group'>
-                    <label>City:</label>
-                    <input type="text" onChange={this.handleChange}/>
+                    <label>
+                        City:
+                        <input type="text" onChange={(e) => this.handleChange(e, 'city')} />
+                    </label>
                 </div>
                 <div className='form-group'>
-                    <label>State:</label>
-                    <input type="text"  onChange={this.handleChange}/>
+                    <label>
+                        State:
+                        <input type="text" onChange={(e) => this.handleChange(e, 'state')} />
+                    </label>
                 </div>
                 <div className='form-group'>
-                    <label>Zip Code:</label>
-                    <input type="text" onChange={this.handleChange}/>
-                    
+                    <label>
+                        Zip Code:
+                        <input type="text" onChange={(e) => this.handleChange(e, 'zip')} />
+                    </label>
+
                 </div>
-                <button type="button" onSubmit={this.handleSubmit } value={this.state.value} className="btn btn-success">Submit</button>
+                <button type="submit" className="btn btn-success">Submit</button>
             </form>
         )
     }

@@ -1,49 +1,35 @@
 import React, { Component } from "react";
 import ContactForm from './contactForm';
 import './App.css';
+import Contactlist from './contactList';
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      person: {
-        name: " ",
-        email: " ",
-        number: " ",
-        address: " ",
-        city: " ",
-        state: " ",
-        zip: " "  
+      contacts: []
     }
-   }
-   this.addNewUser = this.addNewUser.bind(this);
+    this.addNewUser = this.addNewUser.bind(this);
   }
-   addNewUser(){
+  addNewUser(contact) {
     this.setState(prevState => ({
-      person: {
-        ...prevState.person,
-        name: " Joetta ",
-        email: "Joetta.chasidy@gmail.com",
-        number: " 3235480823",
-        address: "202 Williams Street",
-        city: "Atlanta",
-        state: "GA",
-        zip: "30281"
-      }
+      ...prevState,
+      contacts: [...this.state.contacts, contact]
     }));
-   }
+  }
 
-  render(){
+  render() {
     return (
-      <div> 
-          <div className= 'form-sec' style={{width: '400px', background:"#ccc", padding:"15px", boxShadow:'0, 0, 4px #ccc'}}>
-            <h4>Contact Form</h4>
-             <ContactForm onAddUser={this.addNewUser}/>
-          </div>
-          <div>
-             <h4>Contact List</h4>
-             
-          </div>
+      <div>
+        <div className='form-sec' style={{ width: '400px', background: "#ccc", padding: "15px", boxShadow: '0, 0, 4px #ccc' }}>
+          <h4>Contact Form</h4>
+          <ContactForm onAddUser={this.addNewUser} />
+        </div>
+        <div>
+
+          <h4>Contact List</h4>
+          <Contactlist contacts={this.state.contacts} />
+        </div>
       </div>
     )
   }
